@@ -1,0 +1,22 @@
+.select-container {
+  margin: 20px;
+}
+
+.select-container select {
+  width: 100%;
+  padding: 8px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #004d40; /* Dark teal border */
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #004d40; /* Dark teal text */
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.select-container select:focus {
+  outline: none;
+  border-color: teal;
+}
