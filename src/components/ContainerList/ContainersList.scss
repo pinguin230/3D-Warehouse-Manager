@@ -107,3 +107,29 @@
   color: teal;
   margin-left: 10px;
 }
+
+.sort-buttons {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+
+  select {
+    padding: 5px;
+    font-size: 1em;
+    margin-right: 10px;
+    border: 1px solid #004d40; /* Darker shade of teal */
+    border-radius: 5px;
+    background-color: #e0f2f1; /* Light teal background */
+    color: #004d40;
+  }
+
+  .direction-button {
+    padding: 5px 10px;
+    font-size: 1em;
+    border: 1px solid #004d40; /* Darker shade of teal */
+    border-radius: 5px;
+    background-color: #e0f2f1; /* Light teal background */
+    color: #004d40;
+    cursor: pointer;
+  }
+}

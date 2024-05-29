@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { IContainer } from "../../types/ContainerTypes";
 import "./ContainersList.scss";
 import favoriteIcon from './../../photos/star.png';
@@ -9,9 +8,11 @@ import {
     deleteFromFavorites,
     addToSelected,
     patchContainer,
-    addToSelectedContainer
+    addToSelectedContainer, deleteFromFavoritesContainer
 } from '../../utils/api'; // Імпорт функцій
 import EditContainerPopup from "../UI/edit-container-popup/EditContainerPopup"; // Імпорт компоненти
+import { quickSort } from "../../utils/sortUtils.ts";
+import createContainer from "../../utils/createContainer.ts"; // Імпорт функції сортування
 
 interface Props {
     containers: IContainer[];
@@ -25,6 +26,12 @@ const ContainerList: React.FC<Props> = ({ containers, fetchContainer, title, fav
     const [editPopupVisible, setEditPopupVisible] = useState(false);
     const [editContainerData, setEditContainerData] = useState<IContainer | null>(null);
     const [expanded, setExpanded] = useState(true);
+    const [sortedContainers, setSortedContainers] = useState<IContainer[]>(containers);
+    const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+    useEffect(() => {
+        setSortedContainers(containers);
+    }, [containers]);
 
     const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -54,37 +61,82 @@ const ContainerList: React.FC<Props> = ({ containers, fetchContainer, title, fav
     };
 
     const handleFavoriteToggle = (id: string) => {
-        favorite ? deleteFromFavorites(id, fetchContainer) : addToSelectedContainer(id, updateFavoriteContainer);
+        favorite ? deleteFromFavoritesContainer(id, fetchContainer) : addToSelectedContainer(id, updateFavoriteContainer);
     };
 
     const toggleExpand = () => {
         setExpanded(!expanded);
     };
 
+    const handleSort = (key: keyof IContainer) => {
+        const sorted = quickSort(containers, key);
+        if (sortDirection === 'desc') sorted.reverse();
+        setSortedContainers(sorted);
+    };
+
+    const toggleSortDirection = () => {
+        setSortDirection(prevDirection => prevDirection === 'asc' ? 'desc' : 'asc');
+        setSortedContainers(sortedContainers.reverse());
+    };
+
+    const handleAddContainer = async (container: IContainer) => {
+        const postData = {
+            name: container.name,
+            width: container.width,
+            height: container.height,
+            volume: container.volume
+        };
+
+        try {
+            const response = await createContainer(postData);
+            fetchContainer();
+        } catch (error) {
+            console.error('Error while adding to selected:', error);
+            alert('Failed to add to selected');
+        }
+    };
+
     return (
         <div className="coffee-list">
-            <div className="header" onClick={toggleExpand}>
+            <div className="header" >
                 <label>{title}</label>
-                <button className="toggle-button">
+                <button className="toggle-button" onClick={toggleExpand}>
                     {expanded ? '▲' : '▼'}
                 </button>
+                <div className="sort-button">
+                    <select onChange={(e) => handleSort(e.target.value as keyof IContainer)}>
+                        <option value="name">Sort by Name</option>
+                        <option value="width">Sort by Width</option>
+                        <option value="height">Sort by Height</option>
+                        <option value="volume">Sort by Volume</option>
+                    </select>
+                    <button className="direction-button" onClick={toggleSortDirection}>
+                        {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
+                    </button>
+                </div>
             </div>
             {expanded && (
                 <ul>
-                    {containers.map(container => (
+                    {sortedContainers.map(container => (
                         <li key={container._id} className="container-item">
                             <div className="container-details">
                                 <strong>Name:</strong> {container.name}<br />
                                 <strong>Width:</strong> {container.width}<br />
                                 <strong>Height:</strong> {container.height}<br />
                                 <strong>Volume:</strong> {container.volume}<br />
-                                {favorite ? null : <>
-                                    <button onClick={() => deleteContainer(container._id, fetchContainer)} className="delete-button">Delete
-                                    </button>
-                                    <button onClick={() => handleEdit(container)} className="edit-button">Edit</button>
-                                </>}
+                                {favorite ?
+                                    <button className="add-coffee-button"
+                                            onClick={() => handleAddContainer(container)}>Add Container
+                                    </button> : <>
+                                        <button onClick={() => deleteContainer(container._id, fetchContainer)}
+                                                className="delete-button">Delete
+                                        </button>
+                                        <button onClick={() => handleEdit(container)} className="edit-button">Edit
+                                        </button>
+                                    </>}
                             </div>
-                            <img src={favorite ? favoriteIcon : notFavoriteIcon} alt="Favorite" className="favorite-icon"
+                            <img src={favorite ? favoriteIcon : notFavoriteIcon} alt="Favorite"
+                                 className="favorite-icon"
                                  onClick={() => handleFavoriteToggle(container._id)} />
                         </li>
                     ))}

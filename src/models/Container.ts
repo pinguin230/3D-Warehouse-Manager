@@ -1,9 +1,9 @@
 import { Rectangle } from "./Rectangle.ts";
 
 export class Container extends Rectangle {
-    private readonly name: string;
+    public readonly name: string;
     private readonly volume: number;
-    contents: Rectangle[] = [];  // Змінено на Rectangle для загальної сумісності
+    contents = [];  // Змінено на Rectangle для загальної сумісності
 
     constructor(name: string, width: number, height: number, x: number = 0, y: number = 0) {
         super(width, height, x, y);

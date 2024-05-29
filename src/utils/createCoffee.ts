@@ -4,6 +4,7 @@ import {BeanCoffee} from "../models/coffee/BeanCoffee.ts";
 import {CapsuleCoffee} from "../models/coffee/CapsuleCoffee.ts";
 import {InstantCoffee} from "../models/coffee/InstantCoffee.ts";
 import axios from "axios";
+import {fetchCoffeeData} from "./api.ts";
 
 function customCoffeeClass(name: string, type: string, weight: number, height: number, width: number, custom: string, quantity: number) {
     switch (type) {
@@ -25,6 +26,11 @@ function customCoffeeClass(name: string, type: string, weight: number, height: n
 }
 
 const createCoffee = (coffeeData) => {
+    const { weight, height, width, name } = coffeeData;
+    if (weight < 1 || height < 1 || width < 1 || name === '') {
+        alert('The name must not be empty. Weight, height, and width must be non-negative values.');
+        return;
+    }
     const newCoffee = customCoffeeClass(coffeeData.name, coffeeData.type, coffeeData.weight, coffeeData.height, coffeeData.width, coffeeData.custom, coffeeData.quantity);
     if (!newCoffee) {
         console.error('Unsupported coffee type');

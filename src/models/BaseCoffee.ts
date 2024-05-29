@@ -5,7 +5,7 @@ export class BaseCoffee extends Rectangle {
     private readonly type: string;
     private readonly name: string;
     private readonly volume: number;
-    private readonly quantity: number;
+    public readonly quantity: number;
 
     constructor(name: string, type: string, weight: number, height: number, width: number, quantity:number, x = 0, y = 0) {
         super(width, height, x, y); // Виклик конструктора батьківського класу

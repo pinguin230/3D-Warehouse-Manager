@@ -23,9 +23,9 @@ const Container = mongoose.model<Container>('Container', containerSchema, 'conta
 
 containerRouter.get('/container', (_req: Request, res: Response) => {
     Container.find()
-        .then(coffees => {
-            console.log(coffees); // Логування для дебагу
-            res.json(coffees);
+        .then(container => {
+            console.log(container); // Логування для дебагу
+            res.json(container);
         })
         .catch(err => res.status(500).json({ error: err.message }));
 });

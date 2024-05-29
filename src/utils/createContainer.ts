@@ -4,8 +4,12 @@ import axios from "axios";
 
 const createContainer = (containerData) => {
     const newContainer = new Container(containerData.name, containerData.width, containerData.height, )
-    console.log(newContainer)
 
+    const {height, width } = containerData;
+    if (height < 1 || width < 1) {
+        alert('The name must not be empty. Height, and width must be non-negative values.');
+        return;
+    }
     const postData: ContainerStructure = {
         name: newContainer.getName(),
         height: newContainer.getHeight(),

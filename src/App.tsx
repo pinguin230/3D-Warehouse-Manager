@@ -16,7 +16,16 @@ import ContainerVisualizer from "./components/container-visualizer/ContainerVisu
 import { optimizeCoffeeLoadingDP } from "./utils/optimizeCoffeeLoadingDP.ts";
 import Button from "./components/UI/my-button/Button.tsx";
 import Popup from "./components/UI/popup/Popup.tsx";
-import {fetchCoffeeData, fetchContainerData, fetchSelectedCoffeeData, fetchSelectedContainerData} from "./utils/api.ts";
+import {
+    fetchAllReports,
+    fetchCoffeeData,
+    fetchContainerData,
+    fetchSelectedCoffeeData,
+    fetchSelectedContainerData
+} from "./utils/api.ts";
+import Report from "./components/UI/report/Report.tsx";
+import ReportsListPopup from "./components/UI/reports-list-popup/ReportsListPopup.tsx";
+import {log} from "node:util";
 
 const App: React.FC = () => {
     const [currentTypeOfCoffee, setCurrentTypeOfCoffee] = useState("ground coffee");
@@ -40,7 +49,14 @@ const App: React.FC = () => {
 
     const [containerResults, setContainerResults] = useState<Container | null>(null);
     const [showPopup, setShowPopup] = useState(false);
+    const [showReport, setShowReport] = useState(false); // Додаємо стан для звіту
+    const [unplacedCoffees, setUnplacedCoffees] = useState<BaseCoffee[]>([]); // Додаємо стан для кави, яка не помістилась
     const [selectedContainer, setSelectedContainer] = useState<IContainer | null>(null);
+    const [showReportsList, setShowReportsList] = useState(false);
+    const [reportsList, setReportsList] = useState([]);
+    const [selectedReport, setSelectedReport] = useState<Report | null>(null); // Для збереження вибраного звіту
+
+
 
     const coffeeType: Array<Coffee> = [
         { name: "Ground Coffee", value: "ground coffee" },
@@ -61,6 +77,18 @@ const App: React.FC = () => {
     const [fetchSelectedCoffee, , , selectedCoffeeArray] = useFetching<Array<ICoffee>>(fetchSelectedCoffeeData);
     const [fetchContainer, , , containerArray] = useFetching<Array<IContainer>>(fetchContainerData);
     const [fetchSelectedContainer, , , selectedContainerArray] = useFetching<Array<IContainer>>(fetchSelectedContainerData);
+
+
+    const handleCheckAllReports = async () => {
+        try {
+            const reports = await fetchAllReports();
+            console.log(reports)
+            setReportsList(reports);
+            setShowReportsList(true);
+        } catch (error) {
+            console.error("Error fetching reports:", error);
+        }
+    };
 
     function fetchData() {
         fetchCoffee();
@@ -102,8 +130,9 @@ const App: React.FC = () => {
         }
         const container = new Container(selectedContainer.name, selectedContainer.width, selectedContainer.height);
         const coffeeList = coffeeArray.map(c => new BaseCoffee(c.name, c.type, c.weight, c.height, c.width, c.quantity));
-        placeCoffeeInContainer(container, coffeeList);
+        const result = placeCoffeeInContainer(container, coffeeList);
         setContainerResults(container);
+        setUnplacedCoffees(result.unplacedCoffees);
     };
 
     const handleRunDPAlgorithm = () => {
@@ -113,8 +142,9 @@ const App: React.FC = () => {
         }
         const container = new Container(selectedContainer.name, selectedContainer.width, selectedContainer.height);
         const coffeeList = coffeeArray.map(c => new BaseCoffee(c.name, c.type, c.weight, c.height, c.width, c.quantity));
-        const optimizedContainer = optimizeCoffeeLoadingDP(container, coffeeList);
-        setContainerResults(optimizedContainer);
+        const result = optimizeCoffeeLoadingDP(container, coffeeList);
+        setContainerResults(result.container);
+        setUnplacedCoffees(result.unplacedCoffees);
     };
 
     return (
@@ -147,7 +177,13 @@ const App: React.FC = () => {
                 <div className="main-row">
                     <Button className="myBtn" onClick={handleRunDPAlgorithm}>Run DP Algorithm</Button>
                 </div>
-                <div style={{ display: "flex" }}>
+                <div className="main-row">
+                    <Button className="myBtn" onClick={() => setShowReport(true)}>Generate Report</Button>
+                </div>
+                <div className="main-row">
+                    <Button className="myBtn" onClick={handleCheckAllReports}>Check All Reports</Button>
+                </div>
+                <div style={{display: "flex"}}>
                     <div>
                         <CoffeeList
                             title='Coffee List'
@@ -167,9 +203,9 @@ const App: React.FC = () => {
                 </div>
             </div>
             <div className='div2'>
-                <div style={{ display: "flex" }}>
+                <div style={{display: "flex"}}>
                     <div>
-                        <CoffeeList
+                    <CoffeeList
                             favorite={true}
                             title='Favorite Coffees'
                             coffees={selectedCoffeeArray}
@@ -201,6 +237,29 @@ const App: React.FC = () => {
                         ))}
                     </ul>
                 </Popup>
+                {showReport && containerResults && (
+                    <Report
+                        container={containerResults}
+                        unplacedCoffees={unplacedCoffees}
+                        onClose={() => setShowReport(false)}
+                    />
+                )}
+                {showReportsList && (
+                    <ReportsListPopup
+                        reports={reportsList}
+                        onClose={() => setShowReportsList(false)}
+                        onViewDetail={(reportId) => {
+                            const report = reportsList.find(r => r._id === reportId);
+                            if (report) {
+                                setSelectedReport(report);
+                                setShowReport(true);
+                                console.log(selectedReport)
+                            }
+                        }}
+                    />
+                )}
+
+
             </div>
         </div>
     );

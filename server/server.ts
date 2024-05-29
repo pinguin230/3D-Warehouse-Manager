@@ -5,6 +5,7 @@ import coffeeRouter from "./controllers/coffee.controller.ts";
 import containerRouter from "./controllers/container.controller.ts";
 import selectedCoffeeController from "./controllers/selectedCoffee.controller.ts";
 import selectedContainerController from "./controllers/selectedContainer.controller.ts";
+import reportRouter from "./controllers/raport.controller.ts";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/', coffeeRouter)
 app.use('/', containerRouter)
 app.use('/', selectedCoffeeController)
 app.use('/', selectedContainerController)
+app.use('/', reportRouter)
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
