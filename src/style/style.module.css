@@ -1,0 +1,65 @@
+.container {
+  /* background-color: #6d5454; */
+  max-width: 1300px;
+  margin: 0 auto;
+  height: 100%;
+}
+:root {
+  --light-red: #ff7347;
+  --dark-orange: #fd9a06;
+  --orange: #ff9f47;
+  --yellow: #fdb806;
+  --light-yellow: #fdcc06;
+  --green: #2ec674;
+  --light-green: #9de73e;
+  --white: #ffffff;
+  --light-gray-1: #eceff5;
+  --light-gray-2: #c6cddc;
+  --light-gray-3: #e5e5e5;
+  --medium-gray: #b7b6b6;
+  --medium-gray-2: #939eb4;
+  --gray: #9e9e9e;
+  --dark-gray-1: #424242;
+  --dark-gray-2: #333333;
+  --dark-gray-3: #262626;
+  --blue: #0066cc;
+}
+
+/* :root {
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  line-height: 24px;Іі
+  font-weight: 400;
+
+  color: #242424;
+  background-color: #f6f6f6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+} */
+
+/*============ Mobile ============*/
+
+/* .container {
+  width: 345px;
+  margin: 0 auto;
+} */
+
+/*============ Tablet ============*/
+
+/* @media screen and (min-width: 768px) {
+  .container {
+    width: 736px;
+  }
+} */
+
+/*============ Desktop ============*/
+
+/* @media screen and (min-width: 1400px) {
+  .container {
+    width: 1300px;
+  }
+} */

@@ -1,41 +1,48 @@
 import React from 'react';
 import './ReportsListPopup.scss';
 import Popup from "../popup/Popup.tsx";
-
-interface ReportSummary {
-  _id: string;
-  containerName: string;
-  usedVolume: number;
-  totalVolume: number;
-  createdAt: string;
-}
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux.ts";
+import {setCheckReportState, setReportViewerState} from "../../../store/redusers/popup/popup.store.ts";
+import {IReport} from "../../../../server/controllers/report.controller.ts";
 
 interface Props {
-  reports: ReportSummary[];
-  onClose: () => void;
-  onViewDetail: (reportId: string) => void;
+  reports: IReport[];
+  setSelectedReport: (report: string) => void;
 }
 
-const ReportsListPopup: React.FC<Props> = ({ reports, onClose, onViewDetail }) => {
+const ReportsListPopup: React.FC<Props> = ({ reports, setSelectedReport}) => {
 
-  const onClick = (id: string) => {
-    onViewDetail(id);
-    onClose();
+  const dispatch = useAppDispatch();
+
+  const checkReportState = useAppSelector(state => state.popupReducer.checkReportState);
+
+  const handleViewDetail = (reportId: string) => {
+    const report = reports.find(r => r._id === reportId);
+    if (report) {
+      setSelectedReport(report._id);
+      dispatch(setCheckReportState(false));
+      dispatch(setReportViewerState(true))
+    }
   };
 
   return (
-      <Popup show={true} handleClose={onClose}>
+      <Popup show={checkReportState} handleClose={()=>dispatch(setCheckReportState(false))}>
         <div className="reports-list-popup">
           <h2>All Reports</h2>
           <ul>
-            {reports.map(report => (
+            {reports && reports.map(report => (
                 <li key={report._id}>
                   <div className="report-details">
-                    <strong>Container:</strong> {report.containerName} <br/>
-                    <strong>Used Volume:</strong> {report.usedVolume}/{report.totalVolume} <br/>
+                    <strong>Container:</strong> {report.containerName} <br />
+                    <strong>Used Volume:</strong> {report.usedVolume}/{report.totalVolume} <br />
                     <strong>Date:</strong> {new Date(report.createdAt).toLocaleString()}
                   </div>
-                  <button className="view-details-button" onClick={() => onClick(report._id)}>View Details</button>
+                  <button
+                      className="view-details-button"
+                      onClick={() => handleViewDetail(report._id)}
+                  >
+                    View Details
+                  </button>
                 </li>
             ))}
           </ul>

@@ -1,67 +1,71 @@
 import React, { useState } from 'react';
-import { BaseCoffee } from "../../../models/BaseCoffee.ts";
-import { Container } from "../../../models/Container.ts";
 import './Report.scss';
-import axios from "axios";
+import { IContainer } from "../../../store/redusers/container/container.state.ts";
+import { IItem } from "../../../store/redusers/item/item.state.ts";
+import { reportAPI } from "../../../services/ReportService.ts";
 
 interface Props {
-  container: Container;
-  unplacedCoffees: BaseCoffee[];
+  container: IContainer;
+  unplacedItems: IItem[];
   onClose: () => void;
 }
 
-const groupCoffeesByName = (coffees: BaseCoffee[]) => {
-  const coffeeMap: { [key: string]: { coffee: BaseCoffee, quantity: number } } = {};
+const groupItemsByName = (coffees: IItem[]) => {
+  const coffeeMap: { [key: string]: { item: IItem, quantity: number } } = {};
 
-  coffees.forEach(coffee => {
-    if (coffeeMap[coffee.getName()]) {
-      coffeeMap[coffee.getName()].quantity += 1;
+  coffees.forEach(item => {
+    if (coffeeMap[item.name]) {
+      coffeeMap[item.name].quantity += 1;
     } else {
-      coffeeMap[coffee.getName()] = { coffee, quantity: 1 };
+      coffeeMap[item.name] = { item, quantity: 1 };
     }
   });
 
   return Object.values(coffeeMap);
 };
 
-const Report: React.FC<Props> = ({ container, unplacedCoffees, onClose }) => {
+const Report: React.FC<Props> = ({ container, unplacedItems, onClose }) => {
   const [showLoaded, setShowLoaded] = useState(true);
   const [showUnplaced, setShowUnplaced] = useState(true);
 
-  const totalVolume = container.getVolume();
-  const usedVolume = container.contents.reduce((sum, coffee) => sum + coffee.getVolume(), 0);
+  const totalVolume = container.volume ?? 0;
+  const usedVolume = container.contents ? container.contents.reduce((sum, item) => sum + (item.volume ?? 0), 0) : 0;
   const freeVolume = totalVolume - usedVolume;
   const usedPercentage = (usedVolume / totalVolume) * 100;
 
-  const groupedLoadedCoffees = groupCoffeesByName(container.contents);
-  const groupedUnplacedCoffees = groupCoffeesByName(unplacedCoffees);
+  const groupedLoadedItems = groupItemsByName(container.contents ?? []);
+  const groupedUnplacedItems = groupItemsByName(unplacedItems);
+
+  const [addReport] = reportAPI.useAddReportMutation();
 
   const saveReport = async () => {
     const reportData = {
-      containerName: container.getName(),
-      containerWidth: container.getWidth(),
-      containerHeight: container.getHeight(),
-      totalVolume: container.getVolume(),
+      containerName: container.name,
+      containerWidth: container.width,
+      containerHeight: container.height,
+      totalVolume,
       usedVolume,
       freeVolume,
       usedPercentage,
-      loadedCoffees: groupedLoadedCoffees.map(({ coffee, quantity }) => ({
-        name: coffee.getName(),
-        weight: coffee.getWeight(),
-        volume: coffee.getVolume(),
+      loadedItems: groupedLoadedItems.map(({ item, quantity }) => ({
+        name: item.name,
+        weight: item.weight,
+        volume: item.volume ?? 0,
         quantity,
-        usedVolumePercentage: (1 / (totalVolume / (coffee.getVolume() * quantity)) * 100).toFixed(2)
+        usedVolumePercentage: parseFloat(((item.volume! * quantity / totalVolume) * 100).toFixed(2))
       })),
-      unplacedCoffees: groupedUnplacedCoffees.map(({ coffee, quantity }) => ({
-        name: coffee.getName(),
-        weight: coffee.getWeight(),
-        volume: coffee.getVolume(),
+      unplacedItems: groupedUnplacedItems.map(({ item, quantity }) => ({
+        name: item.name,
+        weight: item.weight,
+        volume: item.volume ?? 0,
         quantity
       }))
     };
 
     try {
-      await axios.post('http://localhost:3001/saveReport', reportData);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      await addReport(reportData).unwrap();
       alert('Report saved successfully');
     } catch (error) {
       console.error('Error saving report:', error);
@@ -74,28 +78,27 @@ const Report: React.FC<Props> = ({ container, unplacedCoffees, onClose }) => {
         <div className="report-content">
           <h2>Loading Report</h2>
           <h3>Container Info</h3>
-          <p><strong>Name:</strong> {container.getName()}</p>
-          <p><strong>Width:</strong> {container.getWidth()}</p>
-          <p><strong>Height:</strong> {container.getHeight()}</p>
+          <p><strong>Name:</strong> {container.name}</p>
+          <p><strong>Width:</strong> {container.width}</p>
+          <p><strong>Height:</strong> {container.height}</p>
           <p><strong>Total Volume:</strong> {totalVolume}</p>
           <p><strong>Used Volume:</strong> {usedVolume} ({usedPercentage.toFixed(2)}%)</p>
           <p><strong>Free Volume:</strong> {freeVolume}</p>
 
           <div className="section">
             <div className="section-header" onClick={() => setShowLoaded(!showLoaded)}>
-              <h3>Loaded Coffees</h3>
+              <h3>Loaded Items</h3>
               <button className="toggle-button">{showLoaded ? '▲' : '▼'}</button>
             </div>
             {showLoaded && (
-                <ul className="coffee-list">
-                  {groupedLoadedCoffees.map(({coffee, quantity}, index) => (
+                <ul className="item-list">
+                  {groupedLoadedItems.map(({ item, quantity }, index) => (
                       <li key={index}>
-                        <p><strong>Name:</strong> {coffee.getName()}</p>
-                        <p><strong>Weight:</strong> {coffee.getWeight()}</p>
-                        <p><strong>Volume:</strong> {coffee.getVolume()}</p>
+                        <p><strong>Name:</strong> {item.name}</p>
+                        <p><strong>Weight:</strong> {item.weight}</p>
+                        <p><strong>Volume:</strong> {item.volume}</p>
                         <p><strong>Quantity:</strong> {quantity}</p>
-                        <p><strong>Used
-                          Volume: {(1 / (totalVolume / (coffee.getVolume() * quantity)) * 100).toFixed(2)}%</strong></p>
+                        <p><strong>Used Volume: {(item.volume! * quantity / totalVolume * 100).toFixed(2)}%</strong></p>
                       </li>
                   ))}
                 </ul>
@@ -104,16 +107,16 @@ const Report: React.FC<Props> = ({ container, unplacedCoffees, onClose }) => {
 
           <div className="section">
             <div className="section-header" onClick={() => setShowUnplaced(!showUnplaced)}>
-              <h3>Unplaced Coffees</h3>
+              <h3>Unplaced Items</h3>
               <button className="toggle-button">{showUnplaced ? '▲' : '▼'}</button>
             </div>
             {showUnplaced && (
-                <ul className="coffee-list">
-                  {groupedUnplacedCoffees.map(({coffee, quantity}, index) => (
+                <ul className="item-list">
+                  {groupedUnplacedItems.map(({ item, quantity }, index) => (
                       <li key={index}>
-                        <p><strong>Name:</strong> {coffee.getName()}</p>
-                        <p><strong>Weight:</strong> {coffee.getWeight()}</p>
-                        <p><strong>Volume:</strong> {coffee.getVolume()}</p>
+                        <p><strong>Name:</strong> {item.name}</p>
+                        <p><strong>Weight:</strong> {item.weight}</p>
+                        <p><strong>Volume:</strong> {item.volume}</p>
                         <p><strong>Quantity:</strong> {quantity}</p>
                       </li>
                   ))}
@@ -121,8 +124,8 @@ const Report: React.FC<Props> = ({ container, unplacedCoffees, onClose }) => {
             )}
           </div>
 
-          <button onClick={onClose} className="close-button">Close</button>
-          <button onClick={saveReport} className="save-button">Save Report</button>
+          <button onClick={onClose} className="report-close-button">Close</button>
+          <button onClick={saveReport} className="report-save-button">Save Report</button>
         </div>
       </div>
   );

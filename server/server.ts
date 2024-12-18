@@ -1,22 +1,26 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import coffeeRouter from "./controllers/coffee.controller.ts";
+import itemRouter from "./controllers/item.controller.ts";
 import containerRouter from "./controllers/container.controller.ts";
-import selectedCoffeeController from "./controllers/selectedCoffee.controller.ts";
-import selectedContainerController from "./controllers/selectedContainer.controller.ts";
-import reportRouter from "./controllers/raport.controller.ts";
+import selectedCoffeeController from "./controllers/favoriteItem.controller.ts";
+import selectedContainerController from "./controllers/favoriteContainer.controller.ts";
+import reportRouter from "./controllers/report.controller.ts";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // Вкажіть ваш фронтенд-домен
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Authorization', 'Content-Type'],
+}));
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://tesliamain:dsQSnfZXc0Fxwo5q@coffeedb.tpjpeha.mongodb.net/CoffeeDB?retryWrites=true&ssl=true&w=majority&appName=CoffeeDB",)
+mongoose.connect("mongodb+srv://tesliamain:dsQSnfZXc0Fxwo5q@coffeedb.tpjpeha.mongodb.net/CoffeeDB?retryWrites=true&ssl=true&w=majority&appName=ItemsStoreManagement",)
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 
-app.use('/', coffeeRouter)
+app.use('/', itemRouter)
 app.use('/', containerRouter)
 app.use('/', selectedCoffeeController)
 app.use('/', selectedContainerController)
