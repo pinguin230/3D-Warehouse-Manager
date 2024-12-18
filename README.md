@@ -1,30 +1,81 @@
-# React + TypeScript + Vite
+# 3D Warehouse Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Це проект для управління 3D-складом. Він дозволяє ефективно завантажувати, зберігати та відображати товари за допомогою 3D-візуалізації.
 
-Currently, two official plugins are available:
+## Основні функції:
+- Завантаження 3D-моделей товарів.
+- Управління складом через інтерактивний інтерфейс.
+- Оптимізоване рендеринг середовище для великого об'єму даних.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Попередні вимоги
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Node.js** (версія 14 або новіша)
+- **npm** (версія 6 або новіша) або **yarn**
 
-- Configure the top-level `parserOptions` property like this:
+Перевірити встановлені версії можна за допомогою команд:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+node -v
+npm -v
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Якщо вони не встановлені, завантажте останні версії з [офіційного сайту Node.js](https://nodejs.org/).
+
+## Клонування репозиторію
+
+Склонуйте репозиторій з GitHub:
+
+```bash
+git clone https://github.com/your-username/3d-warehouse-management.git
+```
+
+Перейдіть у директорію проекту:
+
+```bash
+cd 3D-Warehouse-Manager
+```
+
+## Встановлення залежностей
+
+Встановіть всі необхідні залежності:
+
+```bash
+npm install
+```
+
+(Якщо ви віддаєте перевагу yarn, використовуйте `yarn install`)
+
+## Запуск у режимі розробки
+
+Для запуску дев-бекенду з автоматичним оновленням при зміні коду:
+
+```bash
+npm run dev:server
+```
+
+Після успішного запуску ви побачите адресу локального севера, зазвичай `http://localhost:3001/`. Використовуйте її при відправці запитів на сервер.
+
+Для запуску дев-фронтенду з автоматичним оновленням при зміні коду:
+
+```bash
+npm run dev
+```
+
+Після успішного запуску ви побачите адресу локального фронтенду, зазвичай `http://localhost:5173/`. Відкрийте її у браузері.
+
+## Збірка проекту
+
+Для підготовки готового до продакшену збірки виконайте:
+
+```bash
+npm run build
+```
+
+Після цього у директорії `dist` з’явиться оптимізований варіант вашого застосунку, готовий для розгортання на будь-якому хостингу.
+## Додаткова інформація
+
+- Внесіть необхідні зміни у файли конфігурації, якщо потрібно (наприклад, `vite.config.js`).
+- Переконайтеся, що у вас правильно налаштоване середовище для 3D-візуалізації та завантаження товарів згідно з документацією вашого 3D-алгоритму чи бібліотек.
+
+На цьому все! Тепер ви готові працювати з проектом **3D Warehouse Management**.
