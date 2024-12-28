@@ -33,8 +33,8 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
   };
 
   const handleSubmit = () => {
-    const {width, height} = item
-    const volume = width * height
+    const {width, height, depth} = item
+    const volume = width * height * depth;
     patchItem({...item, volume});
     onClose()
   };
@@ -45,7 +45,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           <h2 className="edit-item-style-header">Edit Item</h2>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Name:</label>
+            <label className="edit-item-style-label">Ім'я:</label>
             <input
                 type="text"
                 name="name"
@@ -56,7 +56,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           </div>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Weight:</label>
+            <label className="edit-item-style-label">Вага:</label>
             <input
                 type="number"
                 name="weight"
@@ -67,7 +67,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           </div>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Width:</label>
+            <label className="edit-item-style-label">Ширина:</label>
             <input
                 type="number"
                 name="width"
@@ -78,7 +78,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           </div>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Height:</label>
+            <label className="edit-item-style-label">Висота:</label>
             <input
                 type="number"
                 name="height"
@@ -89,7 +89,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           </div>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Quantity:</label>
+            <label className="edit-item-style-label">Кількість:</label>
             <input
                 type="number"
                 name="quantity"
@@ -100,7 +100,7 @@ const EditItemPopup: React.FC<Props> = ({item, setItem, onClose}) => {
           </div>
 
           <div className="edit-item-style-input-wrapper">
-            <label className="edit-item-style-label">Depth:</label>
+            <label className="edit-item-style-label">Глибина:</label>
             <input
                 type="number"
                 name="depth"

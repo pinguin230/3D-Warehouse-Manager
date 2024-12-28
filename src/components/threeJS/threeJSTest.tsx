@@ -38,12 +38,12 @@ const Container3DVisualizer = ({ initialContainer }) => {
     controls.enableDamping = true;
     controlsRef.current = controls;
 
-    // Додаємо площину обтинання
+
     const clipPlane = clipPlaneRef.current;
-    // Спочатку задаємо обтинання на 100%, контейнер має бути повністю видимим
+
     clipPlane.constant = initialContainer.height * (clipLevel / 100);
 
-    // Створення 3D-контейнера
+
     const containerGeometry = new THREE.BoxGeometry(
         initialContainer.width,
         initialContainer.height,
@@ -63,7 +63,7 @@ const Container3DVisualizer = ({ initialContainer }) => {
     const containerMesh = new THREE.Mesh(containerGeometry, containerMaterial);
     scene.add(containerMesh);
 
-    // Візуалізація предметів у контейнері з обтинанням
+
     initialContainer.contents.forEach((item) => {
       const itemGeometry = new THREE.BoxGeometry(
           item.width,
@@ -81,7 +81,7 @@ const Container3DVisualizer = ({ initialContainer }) => {
       scene.add(itemMesh);
     });
 
-    // Функція анімації
+
     const animate = () => {
       requestAnimationFrame(animate);
       controls.update();
@@ -90,27 +90,27 @@ const Container3DVisualizer = ({ initialContainer }) => {
 
     animate();
 
-    // Очищення сцени при розмонтуванні компонента
+
     return () => {
       renderer.dispose();
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
     };
-  }, [initialContainer]); // Виконується лише при першому рендері або зміні initialContainer
+  }, [initialContainer]);
 
-  // Функція для обробки зміни рівня обтинання
+
   const handleClipLevelChange = (e) => {
     const newClipLevel = Number(e.target.value);
     setClipLevel(newClipLevel);
 
-    // Оновлюємо площину обтинання в реальному часі
+
     const clipPlane = clipPlaneRef.current;
-    // Обчислюємо обтинання: при 100% контейнер повністю видимий, при 0% — обтинання внизу
+
     clipPlane.constant = initialContainer.height * (newClipLevel / 100);
   };
 
-  // Скидання камери до початкової позиції
+
   const resetCamera = () => {
     const camera = cameraRef.current;
     const controls = controlsRef.current;

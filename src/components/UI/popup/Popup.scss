@@ -19,7 +19,7 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
   & h2 {
-    margin-bottom: 20px; /* Space below the heading */
+    margin-bottom: 20px;
   }
 }
 
@@ -34,7 +34,7 @@
     margin: 0;
   }
 
-  /* Окремий елемент списку контейнерів */
+
   &-item {
     background-color: #f4f4f4;
     padding: 10px 15px;
@@ -47,12 +47,12 @@
     color: #333;
   }
 
-  /* Ефект при наведенні на елемент */
+
   &-item:hover {
     background-color: #e0f7fa;
   }
 
-  /* Кнопка закриття попапу */
+
   &-close-button {
     background-color: #ff5f5f;
     color: #ffffff;
@@ -73,7 +73,7 @@
 }
 
 .create-item-style, .create-container-style {
-  /* Основний контейнер рядка створення елементу */
+
   &-main-row {
     margin-top: 20px;
     padding: 20px;
@@ -82,7 +82,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
-  /* Заголовок створення елемента */
+
   &-header {
     display: flex;
     align-items: center;
@@ -94,13 +94,13 @@
     font-weight: bold;
   }
 
-  /* Контейнер для кожного поля вводу */
+
   &-input-wrapper {
     position: relative;
     margin-bottom: 20px;
   }
 
-  /* Лейбл */
+
   &-label {
     position: absolute;
     top: 50%;
@@ -114,20 +114,20 @@
     padding: 0 5px;
   }
 
-  /* Анімоване переміщення лейбла, коли поле не пусте або в фокусі */
+
   &-label.active,
   &-input:focus + .create-item-style-label {
     top: -3px;
-    left: 0px;
+    left: 0;
     font-size: 0.9rem;
     color: teal;
   }
 
-  /* Стиль для полів вводу */
+
   &-input {
     width: 100%;
     padding: 15px 12px;
-    padding-top: 10px; /* Додатковий відступ для лейбла */
+    padding-top: 10px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 1em;
@@ -140,7 +140,7 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
   }
 
-  /* Кнопка створення предмета */
+
   &-button {
     background-color: #28a745;
     color: white;
@@ -160,6 +160,7 @@
   }
 
   &-button-close {
+    margin-top: 15px;
     background-color: #dc3545;
     color: white;
     border: none;
@@ -180,7 +181,7 @@
 
 
 .edit-container-style {
-  /* Основний контейнер попапу */
+
   &-main {
     padding: 20px;
     background-color: #ffffff;
@@ -190,7 +191,7 @@
     margin: auto;
   }
 
-  /* Заголовок */
+
   &-header {
     font-size: 1.5em;
     font-weight: bold;
@@ -199,13 +200,13 @@
     text-align: center;
   }
 
-  /* Контейнер для кожного поля вводу */
+
   &-input-wrapper {
     position: relative;
     margin-bottom: 20px;
   }
 
-  /* Лейбл */
+
   &-label {
     font-size: 1em;
     color: #555;
@@ -213,7 +214,7 @@
     display: block;
   }
 
-  /* Поле вводу */
+
   &-input {
     width: 100%;
     padding: 12px 10px;
@@ -229,7 +230,7 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
   }
 
-  /* Кнопка закриття */
+
   &-close-button {
     background-color: #dc3545;
     color: white;
@@ -249,7 +250,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  /* Кнопка збереження */
+
   &-save-button {
     background-color: #28a745;
     color: white;
@@ -271,7 +272,7 @@
 
 
 .edit-item-style {
-  /* Основний контейнер попапу */
+
   &-main {
     padding: 20px;
     background-color: #ffffff;
@@ -281,7 +282,7 @@
     margin: auto;
   }
 
-  /* Заголовок */
+
   &-header {
     font-size: 1.5em;
     font-weight: bold;
@@ -290,13 +291,13 @@
     text-align: center;
   }
 
-  /* Контейнер для кожного поля вводу */
+
   &-input-wrapper {
     position: relative;
     margin-bottom: 20px;
   }
 
-  /* Лейбл */
+
   &-label {
     font-size: 1em;
     color: #555;
@@ -304,7 +305,7 @@
     display: block;
   }
 
-  /* Поле вводу */
+
   &-input {
     width: 100%;
     padding: 12px 10px;
@@ -320,7 +321,7 @@
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
   }
 
-  /* Кнопка закриття */
+
   &-close-button {
     background-color: #dc3545;
     color: white;
@@ -340,7 +341,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  /* Кнопка збереження */
+
   &-save-button {
     background-color: #28a745;
     color: white;

@@ -24,7 +24,7 @@ const router = createBrowserRouter([
             <AuthenticationPage/>
       },
 
-      // {path: '*', element: <NotFoundPage/>}
+
     ]
   }
 ])

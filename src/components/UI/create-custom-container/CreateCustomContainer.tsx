@@ -30,19 +30,22 @@ const CreateCustomContainer: FC<CreateCustomContainerProps> = ({containerData, h
 
   const handleAddContainer = async () => {
 
-    addContainer({
-      container: { ...containerData, volume: containerData.height * containerData.width * containerData.depth },
-      userId,
-    })
+    const {height, width, depth, name} = containerData;
+    if (!height || !width || !depth || height < 1 || width < 1 || depth < 1 || name === null) {
+      setCode(400)
+      setMessage('Поля не повинні бути порожніми. Вага, висота та ширина повинні бути невід\'ємними значеннями.')
+      return;
+    }
 
     try {
-      const response = await addContainer({
+      await addContainer({
         container: { ...containerData, volume: containerData.height * containerData.width * containerData.depth },
         userId,
       }).unwrap();
       setCode(200)
       setMessage(`Item added successfully`)
       dispatch(setCreateContainerState(false))
+
     } catch (error) {
       setCode(400)
       setMessage(`Error adding item: ${error}`)
@@ -65,7 +68,7 @@ const CreateCustomContainer: FC<CreateCustomContainerProps> = ({containerData, h
         <Popup show={createContainerState} handleClose={() => dispatch(setCreateContainerState(false))}>
         <div className="create-container-style-main-row">
           <div className="create-container-style-header" onClick={toggleExpand}>
-            <label id="label">Create Container</label>
+            <label id="label">Створити Контейнер</label>
           </div>
           {['name', 'height', 'width', 'depth'].map((field) => (
               <div key={field} className="create-container-style-input-wrapper">

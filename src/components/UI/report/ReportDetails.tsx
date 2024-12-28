@@ -37,10 +37,10 @@ const ReportDetails: React.FC<ReportDetailsProps> = ({
       <>
         <h2>Loading Report</h2>
         <h3>Container Info</h3>
-        <p><strong>Name:</strong> {containerName}</p>
-        <p><strong>Total Volume:</strong> {totalVolume}</p>
-        <p><strong>Used Volume:</strong> {usedVolume} ({usedPercentage.toFixed(2)}%)</p>
-        <p><strong>Free Volume:</strong> {freeVolume}</p>
+        <p><strong>Ім'я:</strong> {containerName}</p>
+        <p><strong>Загальний Об'єм:</strong> {totalVolume}</p>
+        <p><strong>Використаний Об'єм:</strong> {usedVolume} ({usedPercentage.toFixed(2)}%)</p>
+        <p><strong>Доступний Об'єм:</strong> {freeVolume}</p>
 
         <div className="section">
           <div className="section-header" onClick={() => setShowLoaded(!showLoaded)}>
@@ -51,12 +51,12 @@ const ReportDetails: React.FC<ReportDetailsProps> = ({
               <ul className="coffee-list">
                 {loadedItems.map((item, index) => (
                     <li key={index}>
-                      <p><strong>Name:</strong> {item.name}</p>
-                      <p><strong>Weight:</strong> {item.weight}</p>
-                      <p><strong>Volume:</strong> {item.volume}</p>
-                      <p><strong>Quantity:</strong> {item.quantity}</p>
+                      <p><strong>Ім'я:</strong> {item.name}</p>
+                      <p><strong>Вага:</strong> {item.weight}</p>
+                      <p><strong>Об'єм:</strong> {item.volume}</p>
+                      <p><strong>Кількість:</strong> {item.quantity}</p>
                       <p>
-                        <strong>Used Volume:</strong> {(item.volume * item.quantity / totalVolume * 100).toFixed(2)}%
+                        <strong>Використаний Об'єм:</strong> {(item.volume * item.quantity / totalVolume * 100).toFixed(2)}%
                       </p>
                     </li>
                 ))}
@@ -73,10 +73,10 @@ const ReportDetails: React.FC<ReportDetailsProps> = ({
               <ul className="coffee-list">
                 {unplacedItems.map((item, index) => (
                     <li key={index}>
-                      <p><strong>Name:</strong> {item.name}</p>
-                      <p><strong>Weight:</strong> {item.weight}</p>
-                      <p><strong>Volume:</strong> {item.volume}</p>
-                      <p><strong>Quantity:</strong> {item.quantity}</p>
+                      <p><strong>Ім'я:</strong> {item.name}</p>
+                      <p><strong>Вага:</strong> {item.weight}</p>
+                      <p><strong>Об'єм:</strong> {item.volume}</p>
+                      <p><strong>Кількість:</strong> {item.quantity}</p>
                     </li>
                 ))}
               </ul>

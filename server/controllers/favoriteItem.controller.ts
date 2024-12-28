@@ -27,8 +27,8 @@ const itemSchema: Schema = new Schema({
 const FavoriteItem = mongoose.model<IItem>('FavoriteItem', itemSchema, 'selectedItemDocument');
 
 itemRouter.get('/favorite-item', async (req: Request, res: Response) => {
-    const userId = req.query.userId as string; // Отримує userId з рядка запиту
-    // console.log(userId)
+    const userId = req.query.userId as string;
+
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required' });
     }

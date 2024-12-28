@@ -78,12 +78,12 @@ const Report: React.FC<Props> = ({ container, unplacedItems, onClose }) => {
         <div className="report-content">
           <h2>Loading Report</h2>
           <h3>Container Info</h3>
-          <p><strong>Name:</strong> {container.name}</p>
-          <p><strong>Width:</strong> {container.width}</p>
-          <p><strong>Height:</strong> {container.height}</p>
-          <p><strong>Total Volume:</strong> {totalVolume}</p>
-          <p><strong>Used Volume:</strong> {usedVolume} ({usedPercentage.toFixed(2)}%)</p>
-          <p><strong>Free Volume:</strong> {freeVolume}</p>
+          <p><strong>Ім'я:</strong> {container.name}</p>
+          <p><strong>Ширина:</strong> {container.width}</p>
+          <p><strong>Висота:</strong> {container.height}</p>
+          <p><strong>Загальний Об'єм:</strong> {totalVolume}</p>
+          <p><strong>Використаний Об'єм:</strong> {usedVolume} ({usedPercentage.toFixed(2)}%)</p>
+          <p><strong>Доступний Об'єм:</strong> {freeVolume}</p>
 
           <div className="section">
             <div className="section-header" onClick={() => setShowLoaded(!showLoaded)}>
@@ -94,11 +94,11 @@ const Report: React.FC<Props> = ({ container, unplacedItems, onClose }) => {
                 <ul className="item-list">
                   {groupedLoadedItems.map(({ item, quantity }, index) => (
                       <li key={index}>
-                        <p><strong>Name:</strong> {item.name}</p>
-                        <p><strong>Weight:</strong> {item.weight}</p>
-                        <p><strong>Volume:</strong> {item.volume}</p>
-                        <p><strong>Quantity:</strong> {quantity}</p>
-                        <p><strong>Used Volume: {(item.volume! * quantity / totalVolume * 100).toFixed(2)}%</strong></p>
+                        <p><strong>Ім'я:</strong> {item.name}</p>
+                        <p><strong>Вага:</strong> {item.weight}</p>
+                        <p><strong>Об'єм:</strong> {item.volume}</p>
+                        <p><strong>Кількість:</strong> {quantity}</p>
+                        <p><strong>Використаний Об'єм: {(item.volume! * quantity / totalVolume * 100).toFixed(2)}%</strong></p>
                       </li>
                   ))}
                 </ul>
@@ -114,10 +114,10 @@ const Report: React.FC<Props> = ({ container, unplacedItems, onClose }) => {
                 <ul className="item-list">
                   {groupedUnplacedItems.map(({ item, quantity }, index) => (
                       <li key={index}>
-                        <p><strong>Name:</strong> {item.name}</p>
-                        <p><strong>Weight:</strong> {item.weight}</p>
-                        <p><strong>Volume:</strong> {item.volume}</p>
-                        <p><strong>Quantity:</strong> {quantity}</p>
+                        <p><strong>Ім'я:</strong> {item.name}</p>
+                        <p><strong>Вага:</strong> {item.weight}</p>
+                        <p><strong>Об'єм:</strong> {item.volume}</p>
+                        <p><strong>Кількість:</strong> {quantity}</p>
                       </li>
                   ))}
                 </ul>

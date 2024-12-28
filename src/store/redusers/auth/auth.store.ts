@@ -15,7 +15,7 @@ export const authStore = createSlice({
       state.isAuthenticated = true;
       state.role = action.payload.role;
       state.idToken = action.payload.idToken;
-      localStorage.setItem('idToken', action.payload.idToken); // Зберегти токен в localStorage
+      localStorage.setItem('idToken', action.payload.idToken);
     },
     logout: (state) => {
       state.isAuthenticated = false;

@@ -1,12 +1,10 @@
 import {
   createAsyncThunk,
   createSlice,
-  current,
   PayloadAction,
 } from "@reduxjs/toolkit"
 import { Axios } from "axios"
-import {initialState, ProfileT} from "./user.state.ts";
-import {RootState} from "../../store.ts";
+import {initialState} from "./user.state.ts";
 
 export const fetchProfile = createAsyncThunk(
     "profile/fetProfile",
@@ -21,14 +19,14 @@ const userStore = createSlice({
       state.uid = action.payload.uid;
       state.name = action.payload.name;
       state.email = action.payload.email;
-      localStorage.setItem('uid', action.payload.uid); // Збереження у localStorage
+      localStorage.setItem('uid', action.payload.uid);
     },
     clearUser: (state) => {
       state.uid = null;
       state.name = null;
       state.email = null;
-      localStorage.removeItem('uid'); // Очищення localStorage
-      localStorage.removeItem('idToken'); // Очищення idToken з localStorage
+      localStorage.removeItem('uid');
+      localStorage.removeItem('idToken');
     }
   }
 })

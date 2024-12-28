@@ -28,13 +28,13 @@ const ReportsListPopup: React.FC<Props> = ({ reports, setSelectedReport}) => {
   return (
       <Popup show={checkReportState} handleClose={()=>dispatch(setCheckReportState(false))}>
         <div className="reports-list-popup">
-          <h2>All Reports</h2>
+          <h2>Список звітів</h2>
           <ul>
             {reports && reports.map(report => (
                 <li key={report._id}>
                   <div className="report-details">
                     <strong>Container:</strong> {report.containerName} <br />
-                    <strong>Used Volume:</strong> {report.usedVolume}/{report.totalVolume} <br />
+                    <strong>Використаний Об'єм:</strong> {report.usedVolume}/{report.totalVolume} <br />
                     <strong>Date:</strong> {new Date(report.createdAt).toLocaleString()}
                   </div>
                   <button

@@ -1,25 +1,28 @@
-@import "../../../style/index.scss";
+@use "../../../style/index.scss";
+@use "../../../style/breakpoints";
+@use "../../../style/functions";
+
 
 .info-alert-message {
   background-color: white !important;
   color: #000000 !important;
-  box-shadow: getRem(0) getRem(0) getRem(10) rgba(30, 30, 30, 0.1);
+  box-shadow: functions.getRem(0) functions.getRem(0) functions.getRem(10) rgba(30, 30, 30, 0.1);
 }
 
 .custom-alert-message {
-    margin: getRem(10) getRem(14) !important;
-    border-radius: getRem(8) !important;
+    margin: functions.getRem(10) functions.getRem(14) !important;
+    border-radius: functions.getRem(8) !important;
 
     .MuiAlert-icon {
-      width: getRem(24) !important;
-      height: getRem(24) !important;
+      width: functions.getRem(24) !important;
+      height: functions.getRem(24) !important;
 
-      @include breakpoint(mobile) {
-        margin: getRem(12) getRem(12) auto 0;
+      @include breakpoints.breakpoint(mobile) {
+        margin: functions.getRem(12) functions.getRem(12) auto 0;
       }
 
-      @include breakpoint(tablet_landscape) {
-        margin: 0 getRem(6) 0 0;
+      @include breakpoints.breakpoint(tablet_landscape) {
+        margin: 0 functions.getRem(6) 0 0;
       }
     }
 }

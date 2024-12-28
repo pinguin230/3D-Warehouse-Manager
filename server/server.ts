@@ -10,13 +10,13 @@ import reportRouter from "./controllers/report.controller.ts";
 const app = express();
 
 app.use(cors({
-  origin: '*', // Вкажіть ваш фронтенд-домен
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
   allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://tesliamain:dsQSnfZXc0Fxwo5q@coffeedb.tpjpeha.mongodb.net/CoffeeDB?retryWrites=true&ssl=true&w=majority&appName=ItemsStoreManagement",)
+mongoose.connect("mongodb+srv://tesliamain:XiPviTzm40NUj03V@coffeedb.tpjpeha.mongodb.net/CoffeeDB?retryWrites=true&ssl=true&w=majority&appName=ItemsStoreManagement",)
     .then(() => console.log('MongoDB connected...'))
     .catch(err => console.log(err));
 

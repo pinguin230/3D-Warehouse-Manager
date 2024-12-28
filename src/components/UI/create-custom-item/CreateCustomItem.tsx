@@ -26,10 +26,9 @@ const CreateCustomItem: FC<CreateCustomItemProps> = ({itemData, handleChangeItem
 
   const createCustomItem = async (itemData) => {
     const {weight, height, width, depth, name} = itemData;
-    if (weight < 1 || height < 1 || width < 1 || depth < 1 || name === null) {
-      // alert('The name must not be empty. Weight, height, and width must be non-negative values.');
+    if (!weight || !height || !width || !depth || weight < 1 || height < 1 || width < 1 || depth < 1 || name === null) {
       setCode(400)
-      setMessage('The name must not be empty. Weight, height, and width must be non-negative values.')
+      setMessage('Поля не повинні бути порожніми. Вага, висота, глубина та ширина повинні бути невід\'ємними значеннями.')
       return;
     }
     itemData.volume = height * width * depth;
@@ -42,11 +41,11 @@ const CreateCustomItem: FC<CreateCustomItemProps> = ({itemData, handleChangeItem
       setCode(400)
       setMessage(`Error adding item: ${error}`)
       if (error?.data?.message) {
-        // Якщо сервер повертає повідомлення про помилку в полі `message`
+
         setCode(400)
         setMessage(`Error: ${error.data.message}`)
       } else if (error.error) {
-        // Якщо помилка міститься в полі `error`
+
         setCode(400)
         setMessage(`Error: ${error.error}`)
       } else {
@@ -65,7 +64,7 @@ const CreateCustomItem: FC<CreateCustomItemProps> = ({itemData, handleChangeItem
         <Popup show={createItemState} handleClose={() => dispatch(setCreateItemState(false))}>
           <div className="create-item-style-main-row">
             <div className="create-item-style-header" onClick={toggleExpand}>
-              <label id="label">Create New Item</label>
+              <label id="label">Додати Предмет</label>
             </div>
             {['name', 'weight', 'height', 'width', 'depth', 'quantity'].map((field) => (
                 <div key={field} className="create-item-style-input-wrapper">

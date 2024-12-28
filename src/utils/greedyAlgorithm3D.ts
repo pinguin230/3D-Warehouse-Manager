@@ -9,7 +9,7 @@ interface PlaceItemsInContainerProps {
 
 const minDistance = 1;
 
-// Updated intersects function for 3D
+
 const intersects = (item: IItem, other: IItem): boolean => {
   return !(
       item.x! >= other.x! + other.width + minDistance ||
@@ -21,12 +21,12 @@ const intersects = (item: IItem, other: IItem): boolean => {
   );
 };
 
-// Sorting items by volume (no changes needed)
+
 export const sortItemByVolume = (items: IItem[]) => {
   return [...items].sort((a, b) => b.volume - a.volume);
 };
 
-// Check if an item fits within the container boundaries
+
 const isSpaceAvailable = (container: IContainer, item: IItem): boolean => {
   return (
       item.x! + item.width + minDistance <= container.width &&
@@ -35,7 +35,7 @@ const isSpaceAvailable = (container: IContainer, item: IItem): boolean => {
   );
 };
 
-// Function to attempt placing an item at a given position
+
 const tryPlaceItem = (
     container: IContainer,
     item: IItem,
@@ -57,7 +57,7 @@ const tryPlaceItem = (
   return false;
 };
 
-// Generate all possible orientations of the item (6 in total for 3D)
+
 const getItemOrientations = (item: IItem): IItem[] => {
 
   console.log("getItemOrientations")
@@ -88,12 +88,12 @@ export const greedyAlgorithm3D = (
     while (remainingQuantity > 0) {
       let placed = false;
 
-      // Generate all orientations for the current item
+
       const orientations = getItemOrientations(originalItem);
 
-      // Try each orientation
+
       for (const item of orientations) {
-        // Try every position within the container
+
         for (let x = 0; x <= container.width - item.width; x++) {
           for (let y = 0; y <= container.height - item.height; y++) {
             for (let z = 0; z <= container.depth - item.depth; z++) {
@@ -110,7 +110,7 @@ export const greedyAlgorithm3D = (
         if (placed) break;
       }
 
-      // If the item couldn't be placed in any orientation
+
       if (!placed) {
         unplacedItems.push({ ...originalItem, quantity: 1 });
         remainingQuantity--;

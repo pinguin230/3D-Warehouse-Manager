@@ -64,10 +64,10 @@ const SelectedContainerList: React.FC<Props> = ({title, containers}) => {
           </div>
           <div className="sort-button">
             <select onChange={(e) => handleSort(e.target.value as keyof IContainer)}>
-              <option value="name">Sort by Name</option>
-              <option value="width">Sort by Width</option>
-              <option value="height">Sort by Height</option>
-              <option value="volume">Sort by Volume</option>
+              <option value="name">Сортувати за Ім'ям</option>
+              <option value="width">Сортувати за Шириною</option>
+              <option value="height">Сортувати за Висотою</option>
+              <option value="volume">Сортувати за Об’ємом</option>
             </select>
             <button className="direction-button" onClick={toggleSortDirection}>
               {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
@@ -79,11 +79,11 @@ const SelectedContainerList: React.FC<Props> = ({title, containers}) => {
               {containers && containers.map(container => (
                   <li key={container._id} className="selected-container-item">
                     <div className="selected-container-details">
-                      <strong>Name:</strong> {container.name}<br/>
-                      <strong>Width:</strong> {container.width}<br/>
-                      <strong>Height:</strong> {container.height}<br/>
-                      <strong>Volume:</strong> {container.volume}<br/>
-                      <strong>Depth:</strong> {container.depth} <br/>
+                      <strong>Ім'я:</strong> {container.name}<br/>
+                      <strong>Ширина:</strong> {container.width}<br/>
+                      <strong>Висота:</strong> {container.height}<br/>
+                      <strong>Об'єм:</strong> {container.volume}<br/>
+                      <strong>Глибина:</strong> {container.depth} <br/>
                     </div>
                     <div className="selected-container-actions">
                       <img src={favoriteIcon} alt="Favorite"

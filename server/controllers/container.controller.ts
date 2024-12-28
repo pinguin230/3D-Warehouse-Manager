@@ -26,8 +26,8 @@ const Container = mongoose.model<Container>('Container', containerSchema, 'conta
 
 
 containerRouter.get('/container', (req: Request, res: Response) => {
-  const userId = req.query.userId as string; // Отримує userId з рядка запиту
-  // console.log(userId)
+  const userId = req.query.userId as string;
+
   if (!userId) {
     return res.status(400).json({ message: 'User ID is required' });
   }
@@ -50,7 +50,7 @@ containerRouter.get('/container/:id', (req: Request, res: Response) => {
 
 
 containerRouter.post('/container', (req: Request, res: Response) => {
-  console.log('Отриманий body:', req.body); // Додайте це логування
+  console.log('Отриманий body:', req.body);
 
   const containerData = new Container({
     userId: req.body.userId,

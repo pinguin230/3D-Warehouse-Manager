@@ -27,7 +27,7 @@ const SelectedContainer = mongoose.model<Container>('SelectedContainer', contain
 
 
 containerRouter.get('/favorite-container', (req: Request, res: Response) => {
-    const userId = req.query.userId as string; // Отримує userId з рядка запиту
+    const userId = req.query.userId as string;
     // console.log(userId)
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required' });

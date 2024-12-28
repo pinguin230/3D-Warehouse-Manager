@@ -2,7 +2,7 @@ import React from 'react';
 import "./MySelect.scss"
 
 interface OptionType {
-	// id: string;
+
 	value: string;
 	name: string;
 }

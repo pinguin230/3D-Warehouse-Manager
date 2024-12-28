@@ -41,7 +41,7 @@ const EditContainerPopup: React.FC<Props> = ({ container, setContainer, onClose 
         <div className="edit-container-style-main">
           <h2 className="edit-container-style-header">Edit Container</h2>
 
-          <label className="edit-container-style-label">Name</label>
+          <label className="edit-container-style-label">Ім'я</label>
           <input
               type="text"
               name="name"
@@ -50,7 +50,7 @@ const EditContainerPopup: React.FC<Props> = ({ container, setContainer, onClose 
               onChange={(e) => onChange("name", e.target.value)}
           />
 
-          <label className="edit-container-style-label">Width</label>
+          <label className="edit-container-style-label">Ширина</label>
           <input
               type="number"
               name="width"
@@ -59,7 +59,7 @@ const EditContainerPopup: React.FC<Props> = ({ container, setContainer, onClose 
               onChange={(e) => onChange("width", +e.target.value)}
           />
 
-          <label className="edit-container-style-label">Height</label>
+          <label className="edit-container-style-label">Висота</label>
           <input
               type="number"
               name="height"
@@ -68,7 +68,7 @@ const EditContainerPopup: React.FC<Props> = ({ container, setContainer, onClose 
               onChange={(e) => onChange("height", +e.target.value)}
           />
 
-          <label className="edit-container-style-label">Depth</label>
+          <label className="edit-container-style-label">Глибина</label>
           <input
               type="number"
               name="depth"

@@ -31,7 +31,11 @@ const ItemList: React.FC<ItemListProps> = ({ items, title, favorite}) => {
   }, [items]);
 
   const handleFavoriteToggle = (item: IItem) => {
-    favorite ? deleteFavoriteItem(item) : addFavoriteItem({item, userId});
+    if (favorite) {
+      deleteFavoriteItem(item)
+    } else {
+      addFavoriteItem({item, userId});
+    }
   };
 
   const handleSort = (key: keyof IItem) => {
@@ -60,12 +64,12 @@ const ItemList: React.FC<ItemListProps> = ({ items, title, favorite}) => {
           </div>
           <div className="sort-button">
             <select onChange={(e) => handleSort(e.target.value as keyof IItem)}>
-              <option value="name">Sort by Name</option>
-              <option value="weight">Sort by Weight</option>
-              <option value="height">Sort by Height</option>
-              <option value="width">Sort by Width</option>
-              <option value="volume">Sort by Volume</option>
-              {!favorite && <option value="quantity">Sort by Quantity</option>}
+              <option value="name">Сортувати за Ім'ям</option>
+              <option value="weight">Сортувати за Вагою</option>
+              <option value="height">Сортувати за Висотою</option>
+              <option value="width">Сортувати за Шириною</option>
+              <option value="volume">Сортувати за Об’ємом</option>
+              {!favorite && <option value="quantity">Сортувати за Кількістю</option>}
             </select>
             <button className="direction-button" onClick={toggleSortDirection}>
               {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
@@ -77,15 +81,15 @@ const ItemList: React.FC<ItemListProps> = ({ items, title, favorite}) => {
               {sortedItems && sortedItems.map(item => (
                   <li key={item._id} className="items-item">
                     <div className="container-details">
-                      <strong>Name:</strong> {item.name}<br/>
-                      <strong>Width:</strong> {item.width}<br/>
-                      <strong>Height:</strong> {item.height}<br/>
-                      <strong>Weight:</strong> {item.weight}<br/>
-                      <strong>Depth:</strong> {item.depth}<br/>
-                      <strong>Volume:</strong> {item.volume}<br/>
+                      <strong>Ім'я:</strong> {item.name}<br/>
+                      <strong>Ширина:</strong> {item.width}<br/>
+                      <strong>Висота:</strong> {item.height}<br/>
+                      <strong>Вага:</strong> {item.weight}<br/>
+                      <strong>Глибина:</strong> {item.depth}<br/>
+                      <strong>Об'єм:</strong> {item.volume}<br/>
                       {!favorite && (
                           <>
-                            <strong>Quantity:</strong> {item.quantity} <br/>
+                            <strong>Кількість:</strong> {item.quantity} <br/>
                           </>
                       )}
                     </div>

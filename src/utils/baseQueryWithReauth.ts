@@ -1,5 +1,5 @@
-import { fetchBaseQuery, BaseQueryApi, FetchArgs, FetchBaseQueryError, BaseQueryFn } from "@reduxjs/toolkit/query/react";
-import { auth } from "../firebase.tsx"; // Імпорт аутентифікації Firebase
+import { fetchBaseQuery, FetchArgs, FetchBaseQueryError, BaseQueryFn } from "@reduxjs/toolkit/query/react";
+import { auth } from "../firebase.tsx";
 
 const baseQuery = fetchBaseQuery({ baseUrl: "http://localhost:3001" });
 

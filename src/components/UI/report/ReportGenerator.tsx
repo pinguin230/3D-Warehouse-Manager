@@ -13,33 +13,33 @@ interface Props {
   unplacedCoffees: IItem[];
 }
 
-// Оновлена функція для групування предметів з урахуванням глибини
+
 const groupCoffeesByName = (items: IItem[], totalContainerVolume: number) => {
-  // Масив для об'єднаних елементів
+
   const groupedItems: { name: string, weight: number, volume: number, quantity: number, depth: number, usedVolumePercentage: number }[] = [];
 
-  // Групування елементів
+
   items.forEach(coffee => {
-    // Знаходимо вже існуючий об'єднаний елемент
+
     const existingItem = groupedItems.find(item => item.name === coffee.name);
 
     if (existingItem) {
-      // Якщо елемент вже існує, збільшуємо кількість
+
       existingItem.quantity += coffee.quantity;
     } else {
-      // Якщо елемент новий, додаємо його в масив
+
       groupedItems.push({
         name: coffee.name,
         weight: coffee.weight,
         depth: coffee.depth,
-        volume: (coffee.width ?? 0) * (coffee.height ?? 0) * (coffee.depth ?? 0), // Обчислення об'єму з урахуванням глибини
+        volume: (coffee.width ?? 0) * (coffee.height ?? 0) * (coffee.depth ?? 0),
         quantity: coffee.quantity,
-        usedVolumePercentage: 0, // Встановлюємо на 0, розрахуємо пізніше
+        usedVolumePercentage: 0,
       });
     }
   });
 
-  // Розрахунок відсотка використаного об'єму
+
   groupedItems.forEach(item => {
     item.usedVolumePercentage = parseFloat(((item.volume * item.quantity / totalContainerVolume) * 100).toFixed(2));
   });
@@ -82,7 +82,7 @@ const ReportGenerator: React.FC<Props> = ({ container, unplacedCoffees}) => {
     containerName: container.name,
     containerWidth: container.width,
     containerHeight: container.height,
-    containerDepth: container.depth, // Додана глибина
+    containerDepth: container.depth,
     totalVolume,
     usedVolume,
     freeVolume,

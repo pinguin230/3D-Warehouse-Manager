@@ -30,15 +30,14 @@ import {
   setCreateItemState
 } from "../../store/redusers/popup/popup.store.ts";
 import {reportAPI} from "../../services/ReportService.ts";
-import GeolocationExample from "../../TestGeo.tsx";
 
 
 const HomePage: React.FC = () => {
   const userId = useAppSelector(state => state.userReducer.uid)
 
   const [containerResults, setContainerResults] = useState<IContainer | null>(null);
-  const [unplacedCoffees, setUnplacedCoffees] = useState<IItem[]>([]); // Додаємо стан для кави, яка не помістилась
-  const [selectedReport, setSelectedReport] = useState<string | null>(null); // Для збереження вибраного звіту
+  const [unplacedCoffees, setUnplacedCoffees] = useState<IItem[]>([]);
+  const [selectedReport, setSelectedReport] = useState<string | null>(null);
   const container = useAppSelector((state: RootState) => state.containerReducer);
 
   const {data: itemsArray} = itemAPI.useFetchAllItemsQuery(userId)
@@ -82,7 +81,7 @@ const HomePage: React.FC = () => {
         <main className='main-content'>
 
           <div className="main-content__left">
-            <Button className="main-content__left-button" onClick={handleChangeItemPopup}>Створити каву</Button>
+            <Button className="main-content__left-button" onClick={handleChangeItemPopup}>Додати предмет</Button>
             <Button className="main-content__left-button" onClick={handleChangeContainerPopup}>Створити контейнер</Button>
             <Button className="main-content__left-button" onClick={handleChangeReportPopup}>Перегляд звітів</Button>
             <Button className="main-content__left-button" onClick={handleRunGreedyAlgorithm3D}>Запуск алгоритму</Button>
@@ -94,11 +93,11 @@ const HomePage: React.FC = () => {
 
             <div style={{display: "flex"}}>
                 <ItemList
-                    title='Items List'
+                    title='Предмети'
                     items={itemsArray}
                 />
                 <ContainerList
-                    title='Container List'
+                    title='Контейнери'
                     containers={containerArray}
                 />
             </div>
@@ -130,13 +129,13 @@ const HomePage: React.FC = () => {
           <div className="main-content__right">
             <div>
               <SelectedItemList
-                  title='Favorite Items'
+                  title='Улюблені Предмети'
                   items={favoriteItemsArray}
               />
             </div>
             <div>
               <SelectedContainerList
-                  title='Favorite Containers'
+                  title='Улюблені Контейнери'
                   containers={selectedContainerArray}
               />
             </div>

@@ -35,11 +35,11 @@
   }
 
   button {
-    background-color: #006d6d; // Приклад кольору для кнопок
+    background-color: #006d6d;
     color: #ffffff;
     padding: 8px 16px;
-    border: 2px solid #004d4d; // Приклад стилю бордера
-    border-radius: 5px; // Зкруглені краї
+    border: 2px solid #004d4d;
+    border-radius: 5px;
     cursor: pointer;
 
     &:hover{

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./ContainersList.scss";
 import favoriteIcon from '../../assets/photos/star.png';
 import notFavoriteIcon from '../../assets/photos/favorite.png';
-import EditContainerPopup from "../UI/edit-container-popup/EditContainerPopup"; // Імпорт компоненти
+import EditContainerPopup from "../UI/edit-container-popup/EditContainerPopup";
 import { quickSort } from "../../utils/sortUtils.ts";
 import {favoriteContainerAPI} from "../../services/FavoriteContainerService.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux.ts";
@@ -43,7 +43,11 @@ const ContainerList: React.FC<Props> = ({ title, containers, favorite}) => {
 
     const handleFavoriteToggle = (container) => {
         console.log(container)
-        favorite ? deleteFavoriteContainer(container) : patchFavoriteContainer({container, userId});
+        if (favorite) {
+            deleteFavoriteContainer(container);
+        } else {
+            patchFavoriteContainer({ container, userId });
+        }
     };
 
     const toggleExpand = () => {
@@ -76,10 +80,10 @@ const ContainerList: React.FC<Props> = ({ title, containers, favorite}) => {
                 </div>
                 <div className="sort-button">
                     <select onChange={(e) => handleSort(e.target.value as keyof IContainer)}>
-                        <option value="name">Sort by Name</option>
-                        <option value="width">Sort by Width</option>
-                        <option value="height">Sort by Height</option>
-                        <option value="volume">Sort by Volume</option>
+                        <option value="name">Сортувати за Ім'ям</option>
+                        <option value="width">Сортувати за Шириною</option>
+                        <option value="height">Сортувати за Висотою</option>
+                        <option value="volume">Сортувати за Об’ємом</option>
                     </select>
                     <button className="direction-button" onClick={toggleSortDirection}>
                         {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
@@ -91,11 +95,11 @@ const ContainerList: React.FC<Props> = ({ title, containers, favorite}) => {
                     {containers && containers.map(container => (
                         <li key={container._id} className="container-item">
                             <div className="container-details">
-                                <strong>Name:</strong> {container.name}<br/>
-                                <strong>Width:</strong> {container.width}<br/>
-                                <strong>Height:</strong> {container.height}<br/>
-                                <strong>Volume:</strong> {container.volume}<br/>
-                                <strong>Depth:</strong> {container.depth} <br/>
+                                <strong>Ім'я:</strong> {container.name}<br/>
+                                <strong>Ширина:</strong> {container.width}<br/>
+                                <strong>Висота:</strong> {container.height}<br/>
+                                <strong>Об'єм:</strong> {container.volume}<br/>
+                                <strong>Глибина:</strong> {container.depth} <br/>
                             </div>
                             <div className="container-actions">
                             <img src={favorite ? favoriteIcon : notFavoriteIcon} alt="Favorite"

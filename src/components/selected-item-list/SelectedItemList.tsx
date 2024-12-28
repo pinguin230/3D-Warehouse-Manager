@@ -65,11 +65,11 @@ const SelectedItemList: React.FC<ItemListProps> = ({ items, title}) => {
           </div>
           <div className="sort-button">
             <select onChange={(e) => handleSort(e.target.value as keyof IItem)}>
-              <option value="name">Sort by Name</option>
-              <option value="weight">Sort by Weight</option>
-              <option value="height">Sort by Height</option>
-              <option value="width">Sort by Width</option>
-              <option value="volume">Sort by Volume</option>
+              <option value="name">Сортувати за Ім'ям</option>
+              <option value="weight">Сортувати за Вагою</option>
+              <option value="height">Сортувати за Висотою</option>
+              <option value="width">Сортувати за Шириною</option>
+              <option value="volume">Сортувати за Об’ємом</option>
             </select>
             <button className="direction-button" onClick={toggleSortDirection}>
               {sortDirection === 'asc' ? 'Ascending' : 'Descending'}
@@ -81,12 +81,12 @@ const SelectedItemList: React.FC<ItemListProps> = ({ items, title}) => {
               {sortedItems && sortedItems.map(item => (
                   <li key={item._id} className="selected-items-item">
                     <div className="selected-item-details">
-                      <strong>Name:</strong> {item.name}<br/>
-                      <strong>Width:</strong> {item.width}<br/>
-                      <strong>Height:</strong> {item.height}<br/>
-                      <strong>Weight:</strong> {item.weight}<br/>
-                      <strong>Depth:</strong> {item.depth}<br/>
-                      <strong>Volume:</strong> {item.volume}<br/>
+                      <strong>Ім'я:</strong> {item.name}<br/>
+                      <strong>Ширина:</strong> {item.width}<br/>
+                      <strong>Висота:</strong> {item.height}<br/>
+                      <strong>Вага:</strong> {item.weight}<br/>
+                      <strong>Глибина:</strong> {item.depth}<br/>
+                      <strong>Об'єм:</strong> {item.volume}<br/>
                     </div>
                     <div className="selected-item-actions">
                       <img

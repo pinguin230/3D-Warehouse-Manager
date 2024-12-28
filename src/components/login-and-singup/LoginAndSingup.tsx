@@ -44,7 +44,7 @@ const LoginAndSingup = () => {
         const user = res.user;
         const uid = user.uid;
         const email = user.email;
-        const displayName = user.displayName || ""; // Використовується як name
+        const displayName = user.displayName || "";
         const idToken = await user.getIdToken();
 
         dispatch(setUser({ uid, email, name: displayName }));
@@ -62,7 +62,11 @@ const LoginAndSingup = () => {
   }
 
   const changeMethod = () => {
-    action === "Sign Up" ? setAction("Login") : setAction("Sign Up")
+    if (action === "Sign Up") {
+      setAction("Login");
+    } else {
+      setAction("Sign Up");
+    }
     setPassword("")
   };
   return (
@@ -77,7 +81,7 @@ const LoginAndSingup = () => {
                 <img src={user_icon} alt=""/>
                 <input
                     type="text"
-                    placeholder="Name"
+                    placeholder="Ім'я"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />

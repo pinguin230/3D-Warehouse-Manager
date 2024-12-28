@@ -1,11 +1,11 @@
 import React, {FC} from 'react'
-// Correct the imports here
+
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
 import "./AlertMessage.scss"
 
-// import "./index.scss"
+
 const SUCCESS_CODE = 200
 const INFO_ALERT = "info"
 
@@ -36,7 +36,7 @@ const AlertMessage: FC<AlertMessageProps> = ({code, message, setMessage, style, 
               }}
               variant="filled"
               severity={code === SUCCESS_CODE ? "success" : "error"}
-              // severity="success"
+
               iconMapping={{
                 success: successIcon
               }}

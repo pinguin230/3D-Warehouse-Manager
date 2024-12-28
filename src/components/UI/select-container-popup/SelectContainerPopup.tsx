@@ -18,7 +18,7 @@ const SelectContainerPopup: FC<SelectContainerPopupProps> = ({containerArray}) =
       <>
         <Popup show={selectedContainerState} styleName="Select Container"
                handleClose={() => dispatch(setSelectedContainerState(false))}>
-          <h2>Select a Container</h2>
+          <h2>Оберіть контейнер</h2>
           <ul className="select-container-style-list">
             {containerArray && containerArray.map(container => (
                 <li

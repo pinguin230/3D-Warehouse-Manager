@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import mongoose, { Schema, Document } from 'mongoose';
 
-//Системи теорії прийняття рішень
+
 
 const itemsRouter = express.Router();
 
@@ -31,8 +31,8 @@ const Items = mongoose.model<IItems>('Items', itemsSchema, 'itemsDocument');
 
 
 itemsRouter.get('/item', (req: Request, res: Response) => {
-    const userId = req.query.userId as string; // Отримує userId з рядка запиту
-    // console.log(userId)
+    const userId = req.query.userId as string;
+
     if (!userId) {
         return res.status(400).json({ message: 'User ID is required' });
     }
@@ -44,13 +44,6 @@ itemsRouter.get('/item', (req: Request, res: Response) => {
 
 itemsRouter.post('/item', async (req: Request, res: Response) => {
     try {
-        // Check if an items with the same name already exists
-        const existingItems = await Items.findOne({ name: req.body.name });
-        if (existingItems) {
-            return res.status(400).json({ message: 'Items with this name already exists' });
-        }
-
-        // If no items with the same name exists, proceed to create a new one
         const itemsData = new Items({
             userId: req.body.userId,
             name: req.body.name,
